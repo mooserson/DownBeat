@@ -2,16 +2,15 @@
 
 ### A Music-synced Platformer
 
-Down beat will generate platforms for the player to jump on to escape. The platforms will drop in sync to music that will slowly increase in speed. The player will benefit by jumping in time to the music.
+Down beat will generate platforms for the player to jump on to escape. The platforms will drop in sync to music that will slowly increase in speed. The player will benefit by jumping in time to the music and will benefit by staying ahead of the fatal bottom-of-screen.
 
 ### MVPs--Goals for the project
 
 The features for a minimum-viable-product were:
 
 - [ ] A canvas-based platformer game
-- [ ] Game speeds up in time to music
+- [ ] Viewport speeds up in sync music
 - [ ] Player controls are responsive and feel fun to user
-- [ ] User Pages
 - [ ] A README will be included
 
 ### Wireframe:
@@ -22,12 +21,14 @@ The game will be on a single page site. It will include a github link, a title, 
 
 ### Architecture and Technologies
 
-The game will run on JavaScript using the AudioContext api.
-  -Easel JS will help streamline using the HTML5 Canvas implementation for rendering.
-  -Sound JS will likely help manage audio to sync with gameplay.
-  -Webpack to package scripts.
+The game will run on JavaScript using the AudioContext api for the songs..
+  - Easel JS will help streamline using the HTML5 Canvas implementation for rendering.
+  - Sound JS will likely be implemented help manage audio to sync with gameplay.
+  - Webpack to package scripts.
 
   player.js Will handle the player logic. It will handle movement for the player's character, behavior and animation.
+  world.js Will contain the backdrop and tie the player, platforms and other objects together.
+
 
 ### Timeline
 
@@ -42,11 +43,11 @@ The game will run on JavaScript using the AudioContext api.
 
 - Set up a canvas and get character to render.
 - Begin getting character to move.
+- Set up keyboard controls for jumping and running.
 - Scope out the next steps for rendering with music.
 
 **Day 3**: Work on character movement and platforms. Finish character control and begin working on platform generation and collision with character.
 
-- Set up keyboard controls for jumping and running.
 - Get character sprite/animation working.
 - Create platform objects and character interaction with them.
   - Platforms generate at dynamic rate.
