@@ -24,9 +24,14 @@ The game will be on a single page site. It will include a github link, a title, 
 The game will run on JavaScript using the AudioContext api for the songs..
   - Easel JS will help streamline using the HTML5 Canvas implementation for rendering.
   - Sound JS will likely be implemented help manage audio to sync with gameplay.
+    - Initially I will select songs with a set beats-per-minute and hard-code the rate that the platforms generate relative to that. It should behave in such a way that the player is jumping in time.
+    - The stretch goal for this would be to have the user select a song and use an API such as EchoNest or dynamically using Audio API.
   - Webpack to package scripts.
 
   player.js Will handle the player logic. It will handle movement for the player's character, behavior and animation.
+
+  platform.js Will contain platform logic.
+
   world.js Will contain the backdrop and tie the player, platforms and other objects together.
 
 
