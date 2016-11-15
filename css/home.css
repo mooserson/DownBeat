@@ -2,6 +2,11 @@ canvas {
   border: 1px solid red;
 }
 
+body, html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .canvas-container {
   height: 95vh;
   width: 100vw;

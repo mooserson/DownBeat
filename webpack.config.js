@@ -4,7 +4,7 @@ module.exports = {
   context: __dirname,
   entry: './down_beat.js',
   output: {
-    path: path.join(__dirname, 'javascripts'),
+    path: path.join(__dirname, 'lib'),
     filename: 'bundle.js'
   },
   resolve: {

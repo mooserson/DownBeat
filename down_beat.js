@@ -1,102 +1,58 @@
 
 
-
-var imgMonsterARun = new Image();
-var canvas;
-var stage;
-var screen_width;
-var screen_height;
-var bmpAnimation;
-
+var walker = new Image();
+var walkerBitmap;
+var hero;
 document.addEventListener("DOMContentLoaded", function() {
-  canvas = document.getElementById("canvas");
-  imgMonsterARun.onload = handleImageLoad;
-  imgMonsterARun.onerror = handleImageError;
-  imgMonsterARun.src = "walker.png";
-});
+  var stage = new createjs.Stage("canvas")
+  walker.onload = imageLoaded;
+  walker.src = 'assets/walkerbig.png';
 
-function handleImageLoad(e) {
-    startGame();
-}
-
-function startGame() {
-	// create a new stage and point it at our canvas:
-	stage = new createjs.Stage(canvas);
-
-	// grab canvas width and height for later calculations:
-	screen_width = canvas.width;
-	screen_height = canvas.height;
-
-    // create spritesheet and assign the associated data.
-	var spriteSheet = new createjs.SpriteSheet({
-	    // image to use
-	    images: [imgMonsterARun],
-	    // width, height & registration point of each sprite
-	    frames: {width: 16, height: 18, regX: 5, regY: 1},
-	    animations: {
-		    walk: [0, 11, "walk"]
-	    }
-    });
-
-    // create a BitmapAnimation instance to display and play back the sprite sheet:
-	bmpAnimation = new createjs.BitmapAnimation(spriteSheet);
-
-    // start playing the first sequence:
-    bmpAnimation.gotoAndPlay("walk"); 	//animate
-
-    // set up a shadow. Note that shadows are ridiculously expensive. You could display hundreds
-    // of animated rats if you disabled the shadow.
-    bmpAnimation.shadow = new createjs.Shadow("#454", 0, 5, 4);
-
-    bmpAnimation.name = "monster1";
-    bmpAnimation.direction = 90;
-    bmpAnimation.vX = 4;
-    bmpAnimation.x = 16;
-    bmpAnimation.y = 32;
-
-    // have each monster start at a specific frame
-    bmpAnimation.currentFrame = 0;
-    stage.addChild(bmpAnimation);
-
-    // we want to do some work before we update the canvas,
-    // otherwise we could use Ticker.addListener(stage);
-    createjs.Ticker.addListener(window);
-    createjs.Ticker.useRAF = true;
-    createjs.Ticker.setFPS(60);
-}
-
-window.start = startGame;
-//called if there is an error loading the image (usually due to a 404)
-function handleImageError(e) {
-	console.log("Error Loading Image : " + e.target.src);
-}
-
-function tick() {
-    // Hit testing the screen width, otherwise our sprite would disappear
-    if (bmpAnimation.x >= screen_width - 16) {
-        // We've reached the right side of our screen
-        // We need to walk left now to go back to our initial position
-        bmpAnimation.direction = -90;
+  createjs.Ticker.addEventListener("tick", tick);
+  function tick() {
+    if (hero.y < 570) {
+      hero.velocity.y += 1;
+    } else {
+      hero.velocity.y = 0;
     }
 
-    if (bmpAnimation.x < 16) {
-        // We've reached the left side of our screen
-        // We need to walk right now
-        bmpAnimation.direction = 90;
-    }
-
-    // Moving the sprite based on the direction & the speed
-    if (bmpAnimation.direction == 90) {
-        bmpAnimation.x += bmpAnimation.vX;
-    }
-    else {
-        bmpAnimation.x -= bmpAnimation.vX;
-    }
-
-    // update the stage:
+    hero.y += hero.velocity.y;
     stage.update();
-}
+  }
 
+
+
+  function imageLoaded () {
+    var data = {
+      images: [walker],
+      frames: {width:32, height:36, regX: 11, regY: 3, spacing: 18},
+      animations: {
+        run: [0,11]
+      }
+    };
+
+    var spriteSheet = new createjs.SpriteSheet(data);
+    hero = new createjs.Sprite(spriteSheet);
+    hero.gotoAndPlay("run");
+    hero.velocity = {x: 0, y: 10}
+    stage.addChild(hero);
+    window.hero = hero;
+  }
+
+  bindKeyHandlers();
+
+
+
+});
+  //
+  function bindKeyHandlers() {
+    key('left', () => {hero.velocity.x -= 5});
+    key('right', () => {hero.velocity.x += 5});
+    key('space', () => {hero.velocity.y -= 20});
+  }
+  //
+  // animation.x = 100;
+  // animation.y = 100;
 
 
 
@@ -106,8 +62,8 @@ function tick() {
 // circle.x = 50;
 // circle.y = 100;
 // stage.addChild(circle);
+// stage.addChild(circle);
 // stage.update();
-// createjs.Ticker.addEventListener("tick", tick);
 // key('a', function(){circle.x -= .5});
 // key('d', function(){circle.x += .5});
 // key('w', function(){circle.y -= .5});
