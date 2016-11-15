@@ -1,0 +1,10 @@
+canvas {
+  border: 1px solid red;
+}
+
+.canvas-container {
+  height: 95vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
