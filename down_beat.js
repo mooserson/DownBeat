@@ -1,83 +1,63 @@
-
+import Hero from './lib/hero';
+import {buildPlatform, updatePlatform} from './lib/platform';
 
 var walker = new Image();
-var walkerBitmap;
 var hero;
+var platforms = [];
+window.platforms = platforms;
+
 document.addEventListener("DOMContentLoaded", function() {
-  var stage = new createjs.Stage("canvas")
+  var stage = new createjs.Stage("canvas");
   walker.onload = imageLoaded;
-  walker.src = 'assets/walkerbig.png';
+  walker.src = 'assets/walker.png';
 
-  createjs.Ticker.addEventListener("tick", tick);
-  function tick() {
-    if (hero.y < 570) {
-      hero.velocity.y += 1;
-    } else {
-      hero.velocity.y = 0;
-    }
-
-    hero.y += hero.velocity.y;
-    stage.update();
-  }
-
-
-
+  // x, y, width, height
   function imageLoaded () {
     var data = {
       images: [walker],
-      frames: {width:32, height:36, regX: 11, regY: 3, spacing: 18},
+      frames: [
+        [9, 8, 30, 32],
+        [59, 8, 30, 32],
+        [109, 8, 30, 32],
+        [159, 8, 30, 32],
+        [209, 8, 30, 32],
+        [259, 8, 30, 32],
+        [309, 8, 30, 32],
+        [359, 8, 30, 32],
+        [409, 8, 30, 32],
+        [459, 8, 30, 32],
+        [509, 8, 30, 32],
+        [559, 8, 30, 32],
+        [9, 58, 31, 32],
+        [59, 58, 31, 32],
+        [109, 58, 31, 32],
+        [159, 58, 31, 32],
+        [209, 58, 31, 32],
+        [259, 58, 31, 32],
+        [309, 58, 31, 32]
+      ],
       animations: {
-        run: [0,11]
+        run: [0,11],
+        jump: [12,18],
+        holdJump: 18
       }
     };
-
     var spriteSheet = new createjs.SpriteSheet(data);
-    hero = new createjs.Sprite(spriteSheet);
-    hero.gotoAndPlay("run");
-    hero.velocity = {x: 0, y: 10}
+    hero = new Hero(spriteSheet);
     stage.addChild(hero);
+    let newPlatform = buildPlatform(100, 500);
+    let floor  = buildPlatform(100, 598);
+    platforms.push(newPlatform);
+    platforms.push(floor);
+    stage.addChild(newPlatform);
+    stage.addChild(floor);
+  }
+
+  createjs.Ticker.addEventListener("tick", tick);
+  function tick() {
+    hero.tick(platforms);
+    // updatePlatform(platforms[0]);
     window.hero = hero;
+    stage.update();
   }
-
-  bindKeyHandlers();
-
-
-
 });
-  //
-  function bindKeyHandlers() {
-    key('left', () => {hero.velocity.x -= 5});
-    key('right', () => {hero.velocity.x += 5});
-    key('space', () => {hero.velocity.y -= 20});
-  }
-  //
-  // animation.x = 100;
-  // animation.y = 100;
-
-
-
-
-// var circle = new createjs.Shape();
-// circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
-// circle.x = 50;
-// circle.y = 100;
-// stage.addChild(circle);
-// stage.addChild(circle);
-// stage.update();
-// key('a', function(){circle.x -= .5});
-// key('d', function(){circle.x += .5});
-// key('w', function(){circle.y -= .5});
-// key('s', function(){circle.y += .5});
-// key('w+d', function(){
-//   circle.y += .5;
-//   circle.x += .5;
-// });
-// window.key = key
-// function tick () {
-//   if (circle.x > stage.canvas.width + 50) {
-//     circle.x = 50;
-//     circle.y = 100;
-//   }
-//   stage.update();
-//   console.log(circle.x, circle.y);
-//  }
