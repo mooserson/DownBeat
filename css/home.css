@@ -8,13 +8,23 @@ canvas {
 }
 
 body, html {
-    overflow-x: hidden;
-    overflow-y: auto;
+    padding-top: 2vh;
+    height: 100vh;
+    font-family: 'Comfortaa', cursive;
+
+    overflow: hidden;
+    background: black;
 }
 
 .canvas-container {
-  height: 95vh;
-  width: 100vh;
-  display: flex;
-  justify-content: center;
+  margin-left: 35vw;
+}
+
+canvas{
+  float: left;
+  margin-right: 3%;
+}
+
+div {
+  color: white;
 }

@@ -1,13 +1,17 @@
 import Hero from './lib/hero';
-import {buildPlatform, updatePlatform} from './lib/platform';
+import Platform from './lib/platform';
+import {buildStage} from './lib/level';
+import Score from './lib/score';
 
 var walker = new Image();
 var hero;
-var platforms = [];
-window.platforms = platforms;
+var stage;
+var score;
+window.platforms = [];
 
 document.addEventListener("DOMContentLoaded", function() {
-  var stage = new createjs.Stage("canvas");
+  stage = new createjs.Stage("canvas");
+  window.stage = stage;
   walker.onload = imageLoaded;
   walker.src = 'assets/walker.png';
 
@@ -44,20 +48,39 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     var spriteSheet = new createjs.SpriteSheet(data);
     hero = new Hero(spriteSheet);
-    stage.addChild(hero);
-    let newPlatform = buildPlatform(100, 500);
-    let floor  = buildPlatform(100, 598);
-    platforms.push(newPlatform);
-    platforms.push(floor);
-    stage.addChild(newPlatform);
-    stage.addChild(floor);
-  }
-
-  createjs.Ticker.addEventListener("tick", tick);
-  function tick() {
-    hero.tick(platforms);
-    // updatePlatform(platforms[0]);
+    score = new Score;
+    stage.addChild(hero, score.currentScore, score.topScore);
     window.hero = hero;
-    stage.update();
+    window.score = score;
+    start();
   }
 });
+
+function tick() {
+  if (hero.started) {
+    checkForScore();
+    Platform.tick(window.platforms);
+    hero.play();
+  } else {
+    hero.stop();
+    score.resetScore();
+  }
+  score.tick();
+  hero.tick(window.platforms);
+  stage.update();
+}
+
+function checkForScore() {
+  let bottomPlat = window.platforms[0].getBounds();
+  if (hero.canScore) {
+    if (hero.y + 32 === bottomPlat.y) {
+      score.addPoint();
+      hero.cannotScore();
+    }
+  }
+}
+
+function start() {
+  createjs.Ticker.addEventListener("tick", tick);
+  buildStage(window.platforms);
+}
