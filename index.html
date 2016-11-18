@@ -5,18 +5,34 @@
     <title>Down Beat</title>
     <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
   </head>
   <body>
 
     <div class="canvas-container">
-      <canvas id="canvas" width="400" height="600"></canvas>
+      <div class="canvas-wrapper">
+        <canvas id="canvas" width="400" height="600"></canvas>
+      </div>
       <div class="right-of-canvas">
-        <h1>The Myth of Sisyphus Simulator</h2>
-          <h3>Be the boulder!</h3>
-          <div class="instruction">
-            Keyboard: <- space ->
-          </div>
+        <h1>Down Beat
+          <a href="https://github.com/mooserson/DownBeat">
+          <i class="fa fa-github" aria-hidden="true"></i>
+          </a>
+        <h1>
+        <h2>
+            The Myth of Sisyphus Simulator
+        </h2>
+        <h3>Be the boulder!</h3>
+        <div class="instruction">
+          Controls:
+          <br>
+          LEFT: <-
+          <br>
+          RIGHT: ->
+          <br>
+          JUMP: space
+        </div>
       </div>
     </div>
     <script type="application/javascript" src="lib/keymaster.js"></script>

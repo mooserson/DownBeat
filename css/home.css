@@ -19,9 +19,28 @@ body, html {
   margin-left: 35vw;
 }
 
+.canvas-wrapper {
+  height: 600px;
+  width: 400px;
+  margin-right: 2%;
+  float: left;
+}
+
+.instruction {
+  display: inline-block;
+  border: 1px solid white;
+}
 canvas{
   float: left;
   margin-right: 3%;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: purple;
 }
 
 div {

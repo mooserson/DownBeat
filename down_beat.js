@@ -1,12 +1,14 @@
 import Hero from './lib/hero';
 import Platform from './lib/platform';
-import {buildStage} from './lib/level';
 import Score from './lib/score';
+import {buildStage} from './lib/level';
+import {pauseScreen} from './lib/screen_text';
 
 var walker = new Image();
 var hero;
 var stage;
 var score;
+var pauseText;
 window.platforms = [];
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -49,25 +51,35 @@ document.addEventListener("DOMContentLoaded", function() {
     var spriteSheet = new createjs.SpriteSheet(data);
     hero = new Hero(spriteSheet);
     score = new Score;
+    pauseText = pauseScreen();
+    stage.addChild(pauseText);
+    stage.setChildIndex(pauseText, stage.getNumChildren()-1);
     stage.addChild(hero, score.currentScore, score.topScore);
+    stage.setChildIndex(hero, stage.getNumChildren()-1);
     window.hero = hero;
     window.score = score;
     start();
   }
 });
 
-function tick() {
+function tick(event) {
+
+
   if (hero.started) {
+    pauseText.alpha = 0;
     checkForScore();
     Platform.tick(window.platforms);
     hero.play();
   } else {
     hero.stop();
+    pauseText.alpha = 1;
     score.resetScore();
   }
   score.tick();
   hero.tick(window.platforms);
   stage.update();
+
+
 }
 
 function checkForScore() {
@@ -80,7 +92,11 @@ function checkForScore() {
   }
 }
 
+
 function start() {
   createjs.Ticker.addEventListener("tick", tick);
+  // let canvasWrapper = document.getElementsByClassName("canvas-wrapper")[0];
+  // canvasWrapper.addEventListener("blur", () => {console.log("blur");});
+  // canvasEl.addEventListener("focusout", checkCanvas);
   buildStage(window.platforms);
 }
