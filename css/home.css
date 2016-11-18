@@ -8,9 +8,8 @@ canvas {
 }
 
 body, html {
-    padding-top: 2vh;
     height: 100vh;
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Bungee Inline', cursive;
 
     overflow: hidden;
     background: black;
