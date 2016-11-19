@@ -71,6 +71,7 @@ function tick(event) {
     Platform.tick(window.platforms);
     hero.play();
   } else {
+    resetPlatforms(window.platforms);
     hero.stop();
     pauseText.alpha = 1;
     score.resetScore();
@@ -92,6 +93,11 @@ function checkForScore() {
   }
 }
 
+function resetPlatforms(platforms) {
+  platforms.forEach(platform => {
+    platform._resetVelocity();
+  });
+}
 
 function start() {
   createjs.Ticker.addEventListener("tick", tick);
