@@ -19,6 +19,11 @@ body, html {
   margin-left: 35vw;
 }
 
+.right-of-canvas{
+  display: flex;
+  flex-direction: column;
+}
+
 .canvas-wrapper {
   height: 600px;
   width: 400px;
@@ -40,6 +45,7 @@ body, html {
   width: 8em;
   float: left;
 }
+
 canvas{
   float: left;
   margin-right: 3%;
