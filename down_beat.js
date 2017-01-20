@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
     score = new Score;
     pauseText = pauseScreen();
     stage.addChild(pauseText);
-    stage.setChildIndex(pauseText, stage.getNumChildren()-1);
     stage.addChild(hero, score.currentScore, score.topScore);
     stage.setChildIndex(hero, stage.getNumChildren()-1);
     window.hero = hero;
@@ -79,8 +78,6 @@ function tick(event) {
   score.tick();
   hero.tick(window.platforms);
   stage.update();
-
-
 }
 
 function checkForScore() {
@@ -101,8 +98,6 @@ function resetPlatforms(platforms) {
 
 function start() {
   createjs.Ticker.addEventListener("tick", tick);
-  // let canvasWrapper = document.getElementsByClassName("canvas-wrapper")[0];
-  // canvasWrapper.addEventListener("blur", () => {console.log("blur");});
-  // canvasEl.addEventListener("focusout", checkCanvas);
   buildStage(window.platforms);
+  stage.setChildIndex(pauseText, stage.getNumChildren()-1);
 }
