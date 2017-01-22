@@ -16,7 +16,7 @@ body, html {
 }
 
 .canvas-container {
-  margin-left: 35vw;
+  /* margin-left: 35vw; */
 }
 
 .right-of-canvas{
@@ -46,11 +46,6 @@ body, html {
   float: left;
 }
 
-.octocat {
-  position: relative;
-  top: 3px;
-}
-
 canvas{
   float: left;
   margin-right: 3%;
@@ -61,7 +56,7 @@ a {
 }
 
 a:hover {
-  opacity: 0.5;
+  color: purple;
 }
 
 div {
